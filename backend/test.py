@@ -18,9 +18,11 @@ def get_stock_data():
     
     # Convert the stock_data to a JSON response
     json_data = stock_data.to_json()
-
     # Return the JSON response
-    return jsonify(json_data)
+    response = jsonify(json_data)
+    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+    return response
+
 
 if __name__ == '__main__':
     app.run()
