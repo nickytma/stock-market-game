@@ -8,7 +8,7 @@ def get_stock_data():
     # Retrieve the stock data using yfinance or any other method
     # ...
     # Define the ticker symbol
-    ticker_symbol = "DJIA"  # Apple Inc.
+    ticker_symbol = "DJIA"
 
     # Retrieve the stock data
     stock_data = yf.download(ticker_symbol, start="2023-06-01", end="2023-07-01")
@@ -18,6 +18,7 @@ def get_stock_data():
     
     # Convert the stock_data to a JSON response
     json_data = stock_data.to_json()
+    
     # Return the JSON response
     response = jsonify(json_data)
     response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')

@@ -10,7 +10,7 @@ export default function Search() {
         .then(response => response.json())
         .then(data => {
             data = JSON.parse(data);
-            console.log(data);
+            console.log(data.Close);
             setStockData(data.Close);
             // console.log(data.Close);
         })

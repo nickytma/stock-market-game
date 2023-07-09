@@ -4,8 +4,8 @@ import HighchartsReact from 'highcharts-react-official';
 
 const StockChartSeriesWidget = ({ stockData }) => {
 
-const seriesData = Object.entries(stockData).map(([key, value]) => [parseInt(key), value]);
-console.log(seriesData);
+  const seriesData = Object.entries(stockData).map(([key, value]) => [parseInt(key), value]);
+  console.log(seriesData);
 
   const options = {
     rangeSelector: {
@@ -14,18 +14,31 @@ console.log(seriesData);
     title: {
       text: 'Stock Prices',
     },
+    xAxis: {
+      type: 'datetime',
+      labels: {
+        formatter: function () {
+          return Highcharts.dateFormat('%b %e', new Date(this.value));
+        },
+      },
+    },
     series: [
       {
         name: 'Stock',
         data: seriesData,
-        tooltip: {
-          valueDecimals: 2,
-        },
       },
     ],
-  };
+      tooltip: {
+        formatter: function () {
+          const date = Highcharts.dateFormat('%b %e, %Y', new Date(this.x));
+          return '<b>' + date + '</b><br/>' + "Value: " + Highcharts.numberFormat(this.y, 2);
+        },
+      },
+    };
 
-  return <HighchartsReact highcharts={Highcharts} options={options} />;
+  return <div style={{ width: '1000px', height: '600px' }}>
+    <HighchartsReact highcharts={Highcharts} options={options} />
+  </div>
 };
 
 export default StockChartSeriesWidget;
