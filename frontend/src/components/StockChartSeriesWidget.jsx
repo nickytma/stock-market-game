@@ -1,7 +1,9 @@
 import React from 'react';
 import Highcharts from 'highcharts';
 import HighchartsReact from 'highcharts-react-official';
+import stockChart from 'highcharts/modules/stock';
 
+stockChart(Highcharts);
 const StockChartSeriesWidget = ({ stockData }) => {
 
   const seriesData = Object.entries(stockData).map(([key, value]) => [parseInt(key), value]);
@@ -36,8 +38,8 @@ const StockChartSeriesWidget = ({ stockData }) => {
       },
     };
 
-  return <div style={{ width: '1000px', height: '600px' }}>
-    <HighchartsReact highcharts={Highcharts} options={options} />
+  return <div style={{ width: '500px', height: '600px' }}>
+    <HighchartsReact highcharts={Highcharts} options={options} constructorType={'stockChart'}/>
   </div>
 };
 
