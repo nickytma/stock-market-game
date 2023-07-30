@@ -5,25 +5,32 @@ app = Flask(__name__)
 
 @app.route('/stock-data')
 def get_stock_data():
-    # Retrieve the stock data using yfinance or any other method
-    # ...
-    # Define the ticker symbol
-    ticker_symbol = "DJIA"
+    
+    ticker1 = "^GSPC" 
+    ticker2 = "^DJI"
+    ticker3 = "^IXIC"
 
-    # Retrieve the stock data
-    stock_data = yf.download(ticker_symbol, start="2023-06-01", end="2023-07-01")
+    data1 = yf.download(ticker1, start="2020-07-03", end="2021-07-03")
+    data2 = yf.download(ticker2, start="2020-07-01", end="2021-07-03")
+    data3 = yf.download(ticker3, start="2020-07-01", end="2021-07-03")
 
-    # Print the stock data
     print("data sent")
-    
-    # Convert the stock_data to a JSON response
-    json_data = stock_data.to_json()
-    
-    # Return the JSON response
-    response = jsonify(json_data)
-    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
-    return response
 
+    json_data1 = data1.to_json()
+    json_data2 = data2.to_json()
+    json_data3 = data3.to_json()
+
+    json_data = {
+        "S": json_data1,
+        "D": json_data2,
+        "N": json_data3
+    }
+
+    response = jsonify(json_data)
+
+    response.headers.add('Access-Control-Allow-Origin', 'http://localhost:5173')
+
+    return response
 
 if __name__ == '__main__':
     app.run()

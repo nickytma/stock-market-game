@@ -1,5 +1,7 @@
 import React from 'react'
 import StockChartSeriesWidget from './StockChartSeriesWidget';
+import IndexChart from './IndexChart'
+import SP from './SP'
 
 
 export default function Search() {
@@ -9,14 +11,15 @@ export default function Search() {
         fetch(`${KEVIN_URL}/stock-data`)
         .then(response => response.json())
         .then(data => {
-            data = JSON.parse(data);
-            console.log(data.Close);
-            setStockData(data.Close);
-            // console.log(data.Close);
+            const data1 = JSON.parse(data.S);
+            const data2 = JSON.parse(data.D);
+            const data3 = JSON.parse(data.N);
+            console.log(data1);
+            setStockData([data1, data2, data3]);
         })
         .catch(error => {
             console.error(error);
-  });
+        });
     }
 
   return (
@@ -26,9 +29,9 @@ export default function Search() {
         >
         Search
         </button>
-        {stockData ? <StockChartSeriesWidget stockData={stockData}/> : <></>}
+        {stockData ? <SP stockData = {stockData}/> : <></>}
     </>
-   
+
 
   )
 }
